@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E0059A125B1B21F003BA9E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059A025B1B21F003BA9E8 /* AppDelegate.swift */; };
 		3E0059A325B1B21F003BA9E8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059A225B1B21F003BA9E8 /* SceneDelegate.swift */; };
-		3E0059A525B1B21F003BA9E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059A425B1B21F003BA9E8 /* ViewController.swift */; };
-		3E0059A825B1B21F003BA9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E0059A625B1B21F003BA9E8 /* Main.storyboard */; };
+		3E0059A525B1B21F003BA9E8 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059A425B1B21F003BA9E8 /* MainVC.swift */; };
 		3E0059AA25B1B220003BA9E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E0059A925B1B220003BA9E8 /* Assets.xcassets */; };
 		3E0059AD25B1B220003BA9E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E0059AB25B1B220003BA9E8 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -19,8 +18,7 @@
 		3E00599D25B1B21F003BA9E8 /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E0059A025B1B21F003BA9E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E0059A225B1B21F003BA9E8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3E0059A425B1B21F003BA9E8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		3E0059A725B1B21F003BA9E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3E0059A425B1B21F003BA9E8 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		3E0059A925B1B220003BA9E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E0059AC25B1B220003BA9E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E0059AE25B1B220003BA9E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,30 @@
 		3E00599F25B1B21F003BA9E8 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
-				3E0059A025B1B21F003BA9E8 /* AppDelegate.swift */,
-				3E0059A225B1B21F003BA9E8 /* SceneDelegate.swift */,
-				3E0059A425B1B21F003BA9E8 /* ViewController.swift */,
-				3E0059A625B1B21F003BA9E8 /* Main.storyboard */,
-				3E0059A925B1B220003BA9E8 /* Assets.xcassets */,
-				3E0059AB25B1B220003BA9E8 /* LaunchScreen.storyboard */,
-				3E0059AE25B1B220003BA9E8 /* Info.plist */,
+				3E0059A425B1B21F003BA9E8 /* MainVC.swift */,
+				3E0059BA25B1B2AF003BA9E8 /* IBuilder */,
+				3E0059B825B1B28F003BA9E8 /* Support Files */,
 			);
 			path = ChatApp;
+			sourceTree = "<group>";
+		};
+		3E0059B825B1B28F003BA9E8 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				3E0059A225B1B21F003BA9E8 /* SceneDelegate.swift */,
+				3E0059A025B1B21F003BA9E8 /* AppDelegate.swift */,
+				3E0059AE25B1B220003BA9E8 /* Info.plist */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		3E0059BA25B1B2AF003BA9E8 /* IBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				3E0059A925B1B220003BA9E8 /* Assets.xcassets */,
+				3E0059AB25B1B220003BA9E8 /* LaunchScreen.storyboard */,
+			);
+			path = IBuilder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,7 +139,6 @@
 			files = (
 				3E0059AD25B1B220003BA9E8 /* LaunchScreen.storyboard in Resources */,
 				3E0059AA25B1B220003BA9E8 /* Assets.xcassets in Resources */,
-				3E0059A825B1B21F003BA9E8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E0059A525B1B21F003BA9E8 /* ViewController.swift in Sources */,
+				3E0059A525B1B21F003BA9E8 /* MainVC.swift in Sources */,
 				3E0059A125B1B21F003BA9E8 /* AppDelegate.swift in Sources */,
 				3E0059A325B1B21F003BA9E8 /* SceneDelegate.swift in Sources */,
 			);
@@ -146,14 +158,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3E0059A625B1B21F003BA9E8 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3E0059A725B1B21F003BA9E8 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3E0059AB25B1B220003BA9E8 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -288,7 +292,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69KGZLM7W9;
-				INFOPLIST_FILE = ChatApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ChatApp/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +311,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69KGZLM7W9;
-				INFOPLIST_FILE = ChatApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ChatApp/Support Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
