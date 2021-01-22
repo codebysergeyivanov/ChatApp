@@ -17,6 +17,8 @@
 		3E0059C825B1B8E9003BA9E8 /* ButtonForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059C725B1B8E9003BA9E8 /* ButtonForm.swift */; };
 		3E0059CB25B1BAD4003BA9E8 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059CA25B1BAD4003BA9E8 /* StackView.swift */; };
 		3E0059CF25B1C8FC003BA9E8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059CE25B1C8FC003BA9E8 /* UIColor.swift */; };
+		3E62F6B025B3487B00E6DB89 /* SingUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62F6AF25B3487B00E6DB89 /* SingUpVC.swift */; };
+		3E76C71125BB442E0034991D /* TFWithBottemBorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		3E0059C725B1B8E9003BA9E8 /* ButtonForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonForm.swift; sourceTree = "<group>"; };
 		3E0059CA25B1BAD4003BA9E8 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
 		3E0059CE25B1C8FC003BA9E8 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		3E62F6AF25B3487B00E6DB89 /* SingUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpVC.swift; sourceTree = "<group>"; };
+		3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFWithBottemBorderLine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0059A425B1B21F003BA9E8 /* AuthMainVC.swift */,
+				3E62F6AF25B3487B00E6DB89 /* SingUpVC.swift */,
 				3E0059BE25B1B5EB003BA9E8 /* Extensions */,
 				3E0059BA25B1B2AF003BA9E8 /* IBuilder */,
 				3E0059B825B1B28F003BA9E8 /* Support Files */,
@@ -95,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0059C725B1B8E9003BA9E8 /* ButtonForm.swift */,
+				3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */,
 				3E0059BF25B1B5F7003BA9E8 /* UIKit */,
 			);
 			path = Extensions;
@@ -187,6 +193,8 @@
 				3E0059A325B1B21F003BA9E8 /* SceneDelegate.swift in Sources */,
 				3E0059CF25B1C8FC003BA9E8 /* UIColor.swift in Sources */,
 				3E0059C525B1B756003BA9E8 /* Label.swift in Sources */,
+				3E62F6B025B3487B00E6DB89 /* SingUpVC.swift in Sources */,
+				3E76C71125BB442E0034991D /* TFWithBottemBorderLine.swift in Sources */,
 				3E0059C125B1B608003BA9E8 /* Button.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
