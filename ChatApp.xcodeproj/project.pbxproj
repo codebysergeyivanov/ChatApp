@@ -19,6 +19,13 @@
 		3E0059CF25B1C8FC003BA9E8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0059CE25B1C8FC003BA9E8 /* UIColor.swift */; };
 		3E62F6B025B3487B00E6DB89 /* SingUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62F6AF25B3487B00E6DB89 /* SingUpVC.swift */; };
 		3E76C71125BB442E0034991D /* TFWithBottemBorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */; };
+		3E9957FD25BC8B9B00437552 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9957FC25BC8B9B00437552 /* LoginVC.swift */; };
+		3E99580325BC92F100437552 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99580225BC92F100437552 /* ProfileVC.swift */; };
+		3E99580625BC93F000437552 /* ImagePickerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99580525BC93F000437552 /* ImagePickerComponent.swift */; };
+		3E99580925BCAA7F00437552 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99580825BCAA7F00437552 /* SegmentedControl.swift */; };
+		3E99581225BCB00A00437552 /* TabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99581125BCB00A00437552 /* TabVC.swift */; };
+		3E99581625BCB0E400437552 /* ProfileListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99581525BCB0E400437552 /* ProfileListVC.swift */; };
+		3E99581B25BCBCD600437552 /* ConversationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99581A25BCBCD600437552 /* ConversationListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +43,13 @@
 		3E0059CE25B1C8FC003BA9E8 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		3E62F6AF25B3487B00E6DB89 /* SingUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingUpVC.swift; sourceTree = "<group>"; };
 		3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFWithBottemBorderLine.swift; sourceTree = "<group>"; };
+		3E9957FC25BC8B9B00437552 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		3E99580225BC92F100437552 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		3E99580525BC93F000437552 /* ImagePickerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerComponent.swift; sourceTree = "<group>"; };
+		3E99580825BCAA7F00437552 /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		3E99581125BCB00A00437552 /* TabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabVC.swift; sourceTree = "<group>"; };
+		3E99581525BCB0E400437552 /* ProfileListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListVC.swift; sourceTree = "<group>"; };
+		3E99581A25BCBCD600437552 /* ConversationListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,8 +82,8 @@
 		3E00599F25B1B21F003BA9E8 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
-				3E0059A425B1B21F003BA9E8 /* AuthMainVC.swift */,
-				3E62F6AF25B3487B00E6DB89 /* SingUpVC.swift */,
+				3E99580B25BCAD6E00437552 /* Controllers */,
+				3E99580025BC8C0A00437552 /* SignUp&Auth Screens */,
 				3E0059BE25B1B5EB003BA9E8 /* Extensions */,
 				3E0059BA25B1B2AF003BA9E8 /* IBuilder */,
 				3E0059B825B1B28F003BA9E8 /* Support Files */,
@@ -100,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				3E0059C725B1B8E9003BA9E8 /* ButtonForm.swift */,
+				3E99580525BC93F000437552 /* ImagePickerComponent.swift */,
 				3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */,
 				3E0059BF25B1B5F7003BA9E8 /* UIKit */,
 			);
@@ -110,11 +125,33 @@
 			isa = PBXGroup;
 			children = (
 				3E0059C025B1B608003BA9E8 /* Button.swift */,
+				3E99580825BCAA7F00437552 /* SegmentedControl.swift */,
 				3E0059C425B1B756003BA9E8 /* Label.swift */,
 				3E0059CA25B1BAD4003BA9E8 /* StackView.swift */,
 				3E0059CE25B1C8FC003BA9E8 /* UIColor.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		3E99580025BC8C0A00437552 /* SignUp&Auth Screens */ = {
+			isa = PBXGroup;
+			children = (
+				3E0059A425B1B21F003BA9E8 /* AuthMainVC.swift */,
+				3E9957FC25BC8B9B00437552 /* LoginVC.swift */,
+				3E62F6AF25B3487B00E6DB89 /* SingUpVC.swift */,
+				3E99580225BC92F100437552 /* ProfileVC.swift */,
+			);
+			path = "SignUp&Auth Screens";
+			sourceTree = "<group>";
+		};
+		3E99580B25BCAD6E00437552 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3E99581125BCB00A00437552 /* TabVC.swift */,
+				3E99581A25BCBCD600437552 /* ConversationListVC.swift */,
+				3E99581525BCB0E400437552 /* ProfileListVC.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,15 +223,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E99580325BC92F100437552 /* ProfileVC.swift in Sources */,
+				3E9957FD25BC8B9B00437552 /* LoginVC.swift in Sources */,
+				3E99580925BCAA7F00437552 /* SegmentedControl.swift in Sources */,
 				3E0059A525B1B21F003BA9E8 /* AuthMainVC.swift in Sources */,
 				3E0059CB25B1BAD4003BA9E8 /* StackView.swift in Sources */,
+				3E99581B25BCBCD600437552 /* ConversationListVC.swift in Sources */,
 				3E0059C825B1B8E9003BA9E8 /* ButtonForm.swift in Sources */,
+				3E99581225BCB00A00437552 /* TabVC.swift in Sources */,
 				3E0059A125B1B21F003BA9E8 /* AppDelegate.swift in Sources */,
 				3E0059A325B1B21F003BA9E8 /* SceneDelegate.swift in Sources */,
 				3E0059CF25B1C8FC003BA9E8 /* UIColor.swift in Sources */,
 				3E0059C525B1B756003BA9E8 /* Label.swift in Sources */,
 				3E62F6B025B3487B00E6DB89 /* SingUpVC.swift in Sources */,
+				3E99581625BCB0E400437552 /* ProfileListVC.swift in Sources */,
 				3E76C71125BB442E0034991D /* TFWithBottemBorderLine.swift in Sources */,
+				3E99580625BC93F000437552 /* ImagePickerComponent.swift in Sources */,
 				3E0059C125B1B608003BA9E8 /* Button.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
