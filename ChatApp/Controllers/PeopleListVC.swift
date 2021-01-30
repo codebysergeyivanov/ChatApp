@@ -8,7 +8,7 @@
 import UIKit
 
 
-class ProfileListVC: UIViewController {
+class PeopleListVC: UIViewController {
     private var reuseIdentifier = "Cell"
     static let sectionHeaderElementKind = "section-header-element-kind"
     
@@ -41,7 +41,7 @@ class ProfileListVC: UIViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.register(ConversationCell.self, forCellWithReuseIdentifier: ConversationCell.reuseIdentifier)
         collectionView.backgroundColor = #colorLiteral(red: 0.9136453271, green: 0.9137768149, blue: 0.9136165977, alpha: 1)
-        collectionView.register(Header.self, forSupplementaryViewOfKind: ProfileListVC.sectionHeaderElementKind, withReuseIdentifier: Header.reuseIdentifier)
+        collectionView.register(Header.self, forSupplementaryViewOfKind: PeopleListVC.sectionHeaderElementKind, withReuseIdentifier: Header.reuseIdentifier)
         self.view.addSubview(collectionView)
         
         configureDataSource()
@@ -128,7 +128,7 @@ class ProfileListVC: UIViewController {
               heightDimension: .estimated(44))
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
               layoutSize: headerSize,
-              elementKind: ProfileListVC.sectionHeaderElementKind,
+              elementKind: PeopleListVC.sectionHeaderElementKind,
               alignment: .top)
             section.boundarySupplementaryItems = [sectionHeader]
             
@@ -151,7 +151,7 @@ class ProfileListVC: UIViewController {
     }
 }
 
-extension ProfileListVC: UISearchBarDelegate {
+extension PeopleListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         performQuery(with: searchText)
     }

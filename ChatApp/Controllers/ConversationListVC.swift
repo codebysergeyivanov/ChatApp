@@ -53,7 +53,7 @@ class ConversationListVC: UIViewController {
         let nibItem = UINib(nibName: "ActiveCell", bundle: .main)
         collectionView.register(nibItem, forCellWithReuseIdentifier: ActiveCell.reuseIdentifier)
         collectionView.backgroundColor = #colorLiteral(red: 0.9136453271, green: 0.9137768149, blue: 0.9136165977, alpha: 1)
-        collectionView.register(Header.self, forSupplementaryViewOfKind: ProfileListVC.sectionHeaderElementKind, withReuseIdentifier: Header.reuseIdentifier)
+        collectionView.register(Header.self, forSupplementaryViewOfKind: PeopleListVC.sectionHeaderElementKind, withReuseIdentifier: Header.reuseIdentifier)
         view.addSubview(collectionView)
         
         configureDataSource()
@@ -173,7 +173,7 @@ class ConversationListVC: UIViewController {
                 heightDimension: .estimated(1))
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,
-                elementKind: ProfileListVC.sectionHeaderElementKind,
+                elementKind: PeopleListVC.sectionHeaderElementKind,
                 alignment: .top)
             section.boundarySupplementaryItems = [sectionHeader]
             

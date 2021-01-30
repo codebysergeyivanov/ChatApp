@@ -1,5 +1,5 @@
 //
-//  ConfirmUserVC.swift
+//  ProfileVC.swift
 //  ChatApp
 //
 //  Created by Сергей Иванов on 27.01.2021.
@@ -8,20 +8,14 @@
 import UIKit
 
 
-class ConfirmUserVC: UIViewController {
+class PeopleVC: UIViewController {
     let fullnameUserLabel = UILabel(text: "Full Name")
     let aboutLabel = UILabel(text: "Text about a person")
     let imageView = UIImageView()
     var bottomArea = UIView()
     var userInfoSV: UIStackView!
-    var buttonsSV: UIStackView!
-    let acceptButton = UIButton(title: "Accept", titleColor: UIColor.white, backgroundColor: #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), isShadow: false)
-    let denyButton: UIButton = {
-        let button = UIButton(title: "Deny", titleColor: UIColor.systemPink, backgroundColor: .white, isShadow: false)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemPink.cgColor
-        return button
-    }()
+    let input = Input()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +34,7 @@ class ConfirmUserVC: UIViewController {
     }
 }
 
-extension ConfirmUserVC {
+extension PeopleVC {
     func configureImageView() {
         imageView.image = UIImage(named: "human1")
         imageView.contentMode = .scaleAspectFill
@@ -54,21 +48,19 @@ extension ConfirmUserVC {
     }
 }
 
-extension ConfirmUserVC {
+extension PeopleVC {
     func addSubviews() {
         view.addSubview(imageView)
-        userInfoSV = UIStackView(arrangedSubviews: [fullnameUserLabel, aboutLabel], axis: .vertical, spacing: 10, alignment: .fill)
-        buttonsSV = UIStackView(arrangedSubviews: [acceptButton, denyButton], axis: .horizontal, spacing: 10, alignment: .fill)
-        buttonsSV.distribution = .fillEqually
+        userInfoSV = UIStackView(arrangedSubviews: [fullnameUserLabel, aboutLabel], axis: .vertical, spacing: 5, alignment: .fill)
         bottomArea.addSubview(userInfoSV)
-        bottomArea.addSubview(buttonsSV)
         view.addSubview(bottomArea)
+        view.addSubview(input)
     }
     func configureConstraints() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         bottomArea.translatesAutoresizingMaskIntoConstraints = false
         userInfoSV.translatesAutoresizingMaskIntoConstraints = false
-        buttonsSV.translatesAutoresizingMaskIntoConstraints = false
+        input.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -91,12 +83,12 @@ extension ConfirmUserVC {
         ])
         
         NSLayoutConstraint.activate([
-            buttonsSV.heightAnchor.constraint(equalToConstant: 50),
-            buttonsSV.topAnchor.constraint(equalTo: userInfoSV.bottomAnchor, constant: 20),
-            buttonsSV.leadingAnchor.constraint(equalTo: bottomArea.leadingAnchor, constant: 20),
-            buttonsSV.trailingAnchor.constraint(equalTo: bottomArea.trailingAnchor, constant: -20)
+            input.heightAnchor.constraint(equalToConstant: 50),
+            input.topAnchor.constraint(equalTo: userInfoSV.bottomAnchor, constant: 25),
+            input.leadingAnchor.constraint(equalTo: bottomArea.leadingAnchor, constant: 20),
+            input.trailingAnchor.constraint(equalTo: bottomArea.trailingAnchor, constant: -20)
         ])
+        
+        
     }
 }
-
-

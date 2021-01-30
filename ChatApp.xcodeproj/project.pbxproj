@@ -25,8 +25,8 @@
 		3E0E0B1725BF1EAE00329384 /* data2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E0E0B1625BF1EAE00329384 /* data2.json */; };
 		3E0E0B1A25BF264600329384 /* ActiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0E0B1925BF264600329384 /* ActiveCell.xib */; };
 		3E0E0B1E25BF2F5D00329384 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E0E0B1D25BF2F5D00329384 /* data.json */; };
-		3E44C31A25C0CE4D0002B903 /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C31925C0CE4D0002B903 /* UserVC.swift */; };
-		3E44C31D25C0CECA0002B903 /* ConfirmUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C31C25C0CECA0002B903 /* ConfirmUserVC.swift */; };
+		3E44C31A25C0CE4D0002B903 /* PeopleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C31925C0CE4D0002B903 /* PeopleVC.swift */; };
+		3E44C31D25C0CECA0002B903 /* ConfirmPeopleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */; };
 		3E44C32225C0E1C70002B903 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C32125C0E1C70002B903 /* Input.swift */; };
 		3E62F6B025B3487B00E6DB89 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62F6AF25B3487B00E6DB89 /* SignUpVC.swift */; };
 		3E76C71125BB442E0034991D /* TFWithBottemBorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */; };
@@ -35,7 +35,7 @@
 		3E99580625BC93F000437552 /* ImagePickerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99580525BC93F000437552 /* ImagePickerComponent.swift */; };
 		3E99580925BCAA7F00437552 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99580825BCAA7F00437552 /* SegmentedControl.swift */; };
 		3E99581225BCB00A00437552 /* TabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99581125BCB00A00437552 /* TabVC.swift */; };
-		3E99581625BCB0E400437552 /* ProfileListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99581525BCB0E400437552 /* ProfileListVC.swift */; };
+		3E99581625BCB0E400437552 /* PeopleListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99581525BCB0E400437552 /* PeopleListVC.swift */; };
 		3E99581B25BCBCD600437552 /* ConversationListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E99581A25BCBCD600437552 /* ConversationListVC.swift */; };
 		3EA7978025C42DD700C2568E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3EA7977F25C42DD700C2568E /* GoogleService-Info.plist */; };
 		3EA7979225C5433E00C2568E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA7979125C5433E00C2568E /* AuthService.swift */; };
@@ -64,8 +64,8 @@
 		3E0E0B1625BF1EAE00329384 /* data2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data2.json; sourceTree = "<group>"; };
 		3E0E0B1925BF264600329384 /* ActiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActiveCell.xib; sourceTree = "<group>"; };
 		3E0E0B1D25BF2F5D00329384 /* data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
-		3E44C31925C0CE4D0002B903 /* UserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
-		3E44C31C25C0CECA0002B903 /* ConfirmUserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmUserVC.swift; sourceTree = "<group>"; };
+		3E44C31925C0CE4D0002B903 /* PeopleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleVC.swift; sourceTree = "<group>"; };
+		3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPeopleVC.swift; sourceTree = "<group>"; };
 		3E44C32125C0E1C70002B903 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		3E62F6AF25B3487B00E6DB89 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFWithBottemBorderLine.swift; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		3E99580525BC93F000437552 /* ImagePickerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerComponent.swift; sourceTree = "<group>"; };
 		3E99580825BCAA7F00437552 /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		3E99581125BCB00A00437552 /* TabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabVC.swift; sourceTree = "<group>"; };
-		3E99581525BCB0E400437552 /* ProfileListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListVC.swift; sourceTree = "<group>"; };
+		3E99581525BCB0E400437552 /* PeopleListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleListVC.swift; sourceTree = "<group>"; };
 		3E99581A25BCBCD600437552 /* ConversationListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListVC.swift; sourceTree = "<group>"; };
 		3EA7977F25C42DD700C2568E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3EA7979125C5433E00C2568E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -199,10 +199,10 @@
 			isa = PBXGroup;
 			children = (
 				3E99581125BCB00A00437552 /* TabVC.swift */,
-				3E44C31925C0CE4D0002B903 /* UserVC.swift */,
-				3E44C31C25C0CECA0002B903 /* ConfirmUserVC.swift */,
+				3E44C31925C0CE4D0002B903 /* PeopleVC.swift */,
+				3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */,
 				3E99581A25BCBCD600437552 /* ConversationListVC.swift */,
-				3E99581525BCB0E400437552 /* ProfileListVC.swift */,
+				3E99581525BCB0E400437552 /* PeopleListVC.swift */,
 				3E0E0B1625BF1EAE00329384 /* data2.json */,
 				3E0E0B1D25BF2F5D00329384 /* data.json */,
 				3E0E0AFF25BEFD8D00329384 /* Cells */,
@@ -354,7 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E99580325BC92F100437552 /* ProfileVC.swift in Sources */,
-				3E44C31A25C0CE4D0002B903 /* UserVC.swift in Sources */,
+				3E44C31A25C0CE4D0002B903 /* PeopleVC.swift in Sources */,
 				3E9957FD25BC8B9B00437552 /* LoginVC.swift in Sources */,
 				3E99580925BCAA7F00437552 /* SegmentedControl.swift in Sources */,
 				3E0E0B0525BF0AD200329384 /* ActiveCell.swift in Sources */,
@@ -372,8 +372,8 @@
 				3E0059CF25B1C8FC003BA9E8 /* UIColor.swift in Sources */,
 				3E0059C525B1B756003BA9E8 /* Label.swift in Sources */,
 				3E62F6B025B3487B00E6DB89 /* SignUpVC.swift in Sources */,
-				3E99581625BCB0E400437552 /* ProfileListVC.swift in Sources */,
-				3E44C31D25C0CECA0002B903 /* ConfirmUserVC.swift in Sources */,
+				3E99581625BCB0E400437552 /* PeopleListVC.swift in Sources */,
+				3E44C31D25C0CECA0002B903 /* ConfirmPeopleVC.swift in Sources */,
 				3E0E0B0E25BF186500329384 /* Bundle Decodable.swift in Sources */,
 				3E0E0B0225BF0A5500329384 /* WaitingCell.swift in Sources */,
 				3E76C71125BB442E0034991D /* TFWithBottemBorderLine.swift in Sources */,
