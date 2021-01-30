@@ -15,7 +15,7 @@ class AuthMainVC: UIViewController {
     let googleButton = UIButton(title: "Google", titleColor: UIColor.darkText, backgroundColor: .colorLight, isShadow: true)
     
     let emailLabel = UILabel(text: "Or sign up with")
-    let emailButton = UIButton(title: "Email", titleColor: UIColor.lightText, backgroundColor: .colorDark, isShadow: false)
+    let emailButton = UIButton(title: "Email", titleColor: UIColor.white, backgroundColor: .colorDark, isShadow: false)
     
     let loginLabel = UILabel(text: "Already onboard?")
     let loginButton = UIButton(title: "Login", titleColor: .systemPink, backgroundColor: .colorLight, isShadow: true)
@@ -26,6 +26,14 @@ class AuthMainVC: UIViewController {
     
         addSubviews()
         setupConstraints()
+        
+        emailButton.addTarget(self, action: #selector(goToSignUpVC), for: .touchUpInside)
+    }
+    
+    @objc func goToSignUpVC() {
+        let signUpVC = SignUpVC()
+        signUpVC.delegate = self
+        present(signUpVC, animated: true, completion: nil)
     }
     
     private func addSubviews() {
@@ -38,8 +46,12 @@ class AuthMainVC: UIViewController {
         view.addSubview(logoLabel)
         view.addSubview(groupButtonView)
     }
+}
 
-
+extension AuthMainVC: NavigationDeleagate {
+    func goToProfileVC() {
+        self.present(ProfileVC(), animated: true, completion: nil)
+    }
 }
 
 // MARK: - Setup constraints

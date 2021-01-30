@@ -7,7 +7,11 @@
 
 import UIKit
 
-class SingUpVC: UIViewController {
+protocol NavigationDeleagate {
+    func goToProfileVC() -> Void
+}
+
+class SignUpVC: UIViewController {
     let headerTitle = UILabel(text: "Good to see you!")
     var groupButtonView: UIStackView!
     let emailLabel = UILabel(text: "Email")
@@ -16,18 +20,38 @@ class SingUpVC: UIViewController {
     let emailTF = TFWithBottemBorderLine(placeholder: "Email")
     let passwordTF = TFWithBottemBorderLine(placeholder: "Password")
     let confirmedPasswordTF = TFWithBottemBorderLine(placeholder: "Confirm password")
-    let singUpButton = UIButton(title: "Sing Up", titleColor: UIColor.lightText, backgroundColor: .colorDark, isShadow: false)
+    let singUpButton = UIButton(title: "Sing Up", titleColor: UIColor.white, backgroundColor: .colorDark, isShadow: false)
+    
+    var delegate: NavigationDeleagate? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         addSubviews()
         setupConstraints()
+        singUpButton.addTarget(self, action: #selector(registration), for: .touchUpInside)
+    }
+    
+    @objc func registration() {
+        guard let email = emailTF.text, let password = passwordTF.text else {
+            return
+        }
+        AuthService.shared.createUser(target: self, email: email, password: password) {
+            Messages.show(target: self, message: "Вы успешно зарегистрированы") { [unowned self] in
+                self.dismiss(animated: true) { [unowned self] in
+                    self.delegate?.goToProfileVC()
+                }
+            }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 
 // MARK: - Setup constraints
-extension SingUpVC {
+extension SignUpVC {
     func addSubviews() {
         view.addSubview(headerTitle)
         
@@ -76,12 +100,12 @@ struct SingUpVCPreview: PreviewProvider{
     
     struct ContainerView: UIViewControllerRepresentable {
  
-        typealias UIViewControllerType = SingUpVC
+        typealias UIViewControllerType = SignUpVC
         
         func makeUIViewController(context: Self.Context) -> Self.UIViewControllerType {
-            return SingUpVC()
+            return SignUpVC()
         }
 
-        func updateUIViewController(_ uiViewController: SingUpVC, context: UIViewControllerRepresentableContext<SingUpVCPreview.ContainerView>) {}
+        func updateUIViewController(_ uiViewController: SignUpVC, context: UIViewControllerRepresentableContext<SingUpVCPreview.ContainerView>) {}
     }
 }
