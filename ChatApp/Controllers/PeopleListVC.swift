@@ -34,6 +34,16 @@ class PeopleListVC: UIViewController {
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
     let charts2 = Bundle.main.decode([Item].self, from: "data2")
+    var currentUser: MUser!
+    
+    init(user: MUser) {
+        self.currentUser = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +57,12 @@ class PeopleListVC: UIViewController {
         configureDataSource()
         applyInitialSnapshots()
         setupNavigationBar()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(singOut))
+    }
+    
+    @objc func singOut() {
+        AuthService.shared.signOut()
     }
     
     func setupNavigationBar() {
@@ -55,7 +71,7 @@ class PeopleListVC: UIViewController {
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search"
         
-        navigationItem.title = "Profiles"
+        navigationItem.title = currentUser.fullname
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         

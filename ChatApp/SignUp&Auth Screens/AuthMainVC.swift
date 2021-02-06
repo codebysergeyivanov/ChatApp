@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class AuthMainVC: UIViewController {
     let logoLabel = UILabel(text: "Chat App")
@@ -27,30 +28,53 @@ class AuthMainVC: UIViewController {
         addSubviews()
         setupConstraints()
         
-        emailButton.addTarget(self, action: #selector(goToSignUpVC), for: .touchUpInside)
+        emailButton.addTarget(self, action: #selector(signup), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
     }
     
-    @objc func goToSignUpVC() {
-        let signUpVC = SignUpVC()
-        signUpVC.delegate = self
-        present(signUpVC, animated: true, completion: nil)
+    @objc func signup() {
+        goToSignUpVC()
+    }
+    
+    @objc func login() {
+        goToLoginVC()
     }
     
     private func addSubviews() {
-        let googleForm = ButtonForm(label: googleLabel, button: googleButton)
+        // let googleForm = ButtonForm(label: googleLabel, button: googleButton)
         let emailForm = ButtonForm(label: emailLabel, button: emailButton)
         let loginForm = ButtonForm(label: loginLabel, button: loginButton)
         
-        groupButtonView = UIStackView(arrangedSubviews: [googleForm, emailForm, loginForm], axis: .vertical, spacing: 50, alignment: .fill)
+        groupButtonView = UIStackView(arrangedSubviews: [emailForm, loginForm], axis: .vertical, spacing: 50, alignment: .fill)
         
         view.addSubview(logoLabel)
         view.addSubview(groupButtonView)
     }
 }
 
-extension AuthMainVC: NavigationDeleagate {
-    func goToProfileVC() {
-        self.present(ProfileVC(), animated: true, completion: nil)
+extension AuthMainVC: NavigationDeleagate {    
+    func goToTabVC(user: MUser) {
+        UIApplication.shared.windows.first?.rootViewController = TabVC(user: user)
+    }
+    
+    func goToProfileVC(user: User, isFullScreen: Bool) {
+        let profileVC = ProfileVC(user: user)
+        if isFullScreen {
+            profileVC.modalPresentationStyle = .fullScreen
+        }
+        self.present(profileVC, animated: true, completion: nil)
+    }
+    
+    func goToLoginVC() {
+        let loginVC = LoginVC()
+        loginVC.delegate = self
+        present(loginVC, animated: true, completion: nil)
+    }
+    
+    func goToSignUpVC() {
+        let signUpVC = SignUpVC()
+        signUpVC.delegate = self
+        present(signUpVC, animated: true, completion: nil)
     }
 }
 

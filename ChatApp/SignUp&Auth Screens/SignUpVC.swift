@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol NavigationDeleagate {
-    func goToProfileVC() -> Void
-}
-
 class SignUpVC: UIViewController {
     let headerTitle = UILabel(text: "Good to see you!")
     var groupButtonView: UIStackView!
@@ -21,6 +17,7 @@ class SignUpVC: UIViewController {
     let passwordTF = TFWithBottemBorderLine(placeholder: "Password")
     let confirmedPasswordTF = TFWithBottemBorderLine(placeholder: "Confirm password")
     let singUpButton = UIButton(title: "Sing Up", titleColor: UIColor.white, backgroundColor: .colorDark, isShadow: false)
+    let loginButton = UIButton(title: "Login", titleColor: .systemPink, backgroundColor: .colorLight, isShadow: false)
     
     var delegate: NavigationDeleagate? = nil
 
@@ -30,18 +27,36 @@ class SignUpVC: UIViewController {
         addSubviews()
         setupConstraints()
         singUpButton.addTarget(self, action: #selector(registration), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
     }
     
     @objc func registration() {
-        guard let email = emailTF.text, let password = passwordTF.text else {
+        let email = emailTF.text
+        let password = passwordTF.text
+        let confirmedPassword = confirmedPasswordTF.text
+        
+        guard Validation.isValidEmail(email) else {
+            Messages.show(target: self, title: "Ошибка", message: FormError.emailNotCorrect.localizedDescription, handler: nil)
             return
         }
-        AuthService.shared.createUser(target: self, email: email, password: password) {
+        guard Validation.isConfirmedPassworld(password: password, confirmedPassword: confirmedPassword) else {
+            Messages.show(target: self, title: "Ошибка", message: FormError.passwordNotConfirmed.localizedDescription, handler: nil)
+            return
+        }
+        
+        AuthService.shared.createUser(target: self, email: email!, password: password!) {
+            [unowned self] user in
             Messages.show(target: self, message: "Вы успешно зарегистрированы") { [unowned self] in
                 self.dismiss(animated: true) { [unowned self] in
-                    self.delegate?.goToProfileVC()
+                    self.delegate?.goToProfileVC(user: user, isFullScreen: false)
                 }
             }
+        }
+    }
+    
+    @objc func login() {
+        self.dismiss(animated: true) { [unowned self] in
+            self.delegate?.goToLoginVC()
         }
     }
     
@@ -58,7 +73,6 @@ extension SignUpVC {
         let emailSV = UIStackView(arrangedSubviews: [emailLabel, emailTF], axis: .vertical, spacing: 10, alignment: .fill)
         let passwordSV = UIStackView(arrangedSubviews: [passwordLabel, passwordTF], axis: .vertical, spacing: 10, alignment: .fill)
         let confirmedPasswordSV = UIStackView(arrangedSubviews: [confirmedPasswordLabel, confirmedPasswordTF], axis: .vertical, spacing: 10, alignment: .fill)
-        let loginButton = UIButton(title: "Login", titleColor: .systemPink, backgroundColor: .colorLight, isShadow: false)
         let spacerView = UIView()
         UIView().setContentHuggingPriority(.defaultLow, for: .horizontal)
         let loginSV  = UIStackView(arrangedSubviews: [

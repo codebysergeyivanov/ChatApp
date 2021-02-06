@@ -41,6 +41,16 @@ class ConversationListVC: UIViewController {
     
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
+    var currentUser: MUser!
+    
+    init(user: MUser) {
+        self.currentUser = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
@@ -60,6 +70,11 @@ class ConversationListVC: UIViewController {
         applyInitialSnapshots()
         performQuery(with: nil)
         setupNavigationBar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(singOut))
+    }
+    
+    @objc func singOut() {
+        AuthService.shared.signOut()
     }
     
     func setupNavigationBar() {
@@ -68,7 +83,7 @@ class ConversationListVC: UIViewController {
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "Search"
         
-        navigationItem.title = "Conversation"
+        navigationItem.title = currentUser.fullname
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         

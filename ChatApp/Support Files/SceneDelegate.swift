@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -19,7 +20,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         window.makeKeyAndVisible()
-        window.rootViewController = AuthMainVC()
+        if let user = Auth.auth().currentUser {
+            FirestoreService.shared.getUser(user: user) {
+                muser in
+                if let muser = muser {
+                    window.rootViewController = TabVC(user: muser)
+                } else {
+                    window.rootViewController = ProfileVC(user: user)
+                }
+            }
+            window.rootViewController = LaunchScreen()
+        } else {
+            window.rootViewController = AuthMainVC()
+        }
         self.window = window
     }
 

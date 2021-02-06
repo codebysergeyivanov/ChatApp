@@ -9,6 +9,8 @@ import UIKit
 
 class ImagePickerComponent: UIView {
     let imageView = UIImageView()
+    let button = UIButton(type: .system)
+    var target: UIViewController!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,7 +22,6 @@ class ImagePickerComponent: UIView {
         imageView.layer.borderColor = UIColor.gray.cgColor
         imageView.layer.borderWidth = 1
         
-        let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
         
         addSubview(button)
@@ -44,6 +45,7 @@ class ImagePickerComponent: UIView {
         
         self.bottomAnchor.constraint(equalTo: imageView.bottomAnchor).isActive = true
         self.trailingAnchor.constraint(equalTo: button.trailingAnchor).isActive = true
+        
     }
     
     required init?(coder: NSCoder) {
