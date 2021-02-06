@@ -58,7 +58,7 @@ class ProfileVC: UIViewController{
         let sex = sexSegmentedControl.titleForSegment(at: sexSegmentedControl.selectedSegmentIndex)
         let image = imagePicker.imageView.image
     
-        FirestoreService.shared.saveProfile(target: self, uid: currentUser.uid, email: currentUser.email!, fullname: fullname, avatarImage: image!, sex: sex, about: about) {
+        FirestoreService.shared.saveProfile(target: self, uid: currentUser.uid, email: currentUser.email!, fullname: fullname, avatarImageStringURL: image!, sex: sex, about: about) {
             user in
             let tabVC = TabVC(user: user)
             tabVC.modalPresentationStyle = .fullScreen

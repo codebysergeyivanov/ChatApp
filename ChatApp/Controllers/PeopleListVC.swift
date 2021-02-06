@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 
 class PeopleListVC: UIViewController {
@@ -16,29 +17,19 @@ class PeopleListVC: UIViewController {
         case main
     }
     
-    struct Item: Hashable, Decodable {
-        let fullname: String
-        let lastMessage: String
-        let image: String
-        let id: Int
-        
-        init(fullname: String, lastMessage: String, image: String, id: Int) {
-            self.fullname = fullname
-            self.lastMessage = lastMessage
-            self.image = image
-            self.id = id
-        }
-    }
-    
-    
     var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
-    let charts2 = Bundle.main.decode([Item].self, from: "data2")
+    var dataSource: UICollectionViewDiffableDataSource<Section, MUser>!
+    var users = [MUser]()
     var currentUser: MUser!
+    var usersObserver: ListenerRegistration!
     
     init(user: MUser) {
         self.currentUser = user
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    deinit {
+        usersObserver.remove()
     }
     
     required init?(coder: NSCoder) {
@@ -49,16 +40,26 @@ class PeopleListVC: UIViewController {
         super.viewDidLoad()
         self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.register(ConversationCell.self, forCellWithReuseIdentifier: ConversationCell.reuseIdentifier)
+        collectionView.register(PeopleCell.self, forCellWithReuseIdentifier: PeopleCell.reuseIdentifier)
         collectionView.backgroundColor = #colorLiteral(red: 0.9136453271, green: 0.9137768149, blue: 0.9136165977, alpha: 1)
         collectionView.register(Header.self, forSupplementaryViewOfKind: PeopleListVC.sectionHeaderElementKind, withReuseIdentifier: Header.reuseIdentifier)
         self.view.addSubview(collectionView)
         
         configureDataSource()
-        applyInitialSnapshots()
         setupNavigationBar()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(singOut))
+        
+        usersObserver = ListenerService.shared.observeObject(users) {
+            result in
+            switch result {
+            case .success(let users):
+                self.users = users
+                self.performQuery(with: nil)
+            case .failure(let error):
+                print("Error fetching snapshots: \(error)")
+            }
+        }
     }
     
     @objc func singOut() {
@@ -80,18 +81,18 @@ class PeopleListVC: UIViewController {
     }
     
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, MUser>(collectionView: collectionView) {
             (collectionView, indexPath, chat) -> UICollectionViewCell? in
             guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
             switch section {
             case .main:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConversationCell.reuseIdentifier, for: indexPath as IndexPath) as! ConversationCell
-                cell.configure(imageName: chat.image, fullname: chat.fullname)
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PeopleCell.reuseIdentifier, for: indexPath as IndexPath) as! PeopleCell
+                cell.configure(avatarImageStringURL: chat.avatarImageStringURL, fullname: chat.fullname)
                 return cell
             }
         }
         
-        dataSource.supplementaryViewProvider = { (
+        dataSource.supplementaryViewProvider = {  [unowned self] (
           collectionView: UICollectionView,
           kind: String,
           indexPath: IndexPath)
@@ -103,21 +104,11 @@ class PeopleListVC: UIViewController {
             for: indexPath) as? Header else {
               fatalError("Cannot create header view")
           }
+            let items = self.dataSource.snapshot().itemIdentifiers(inSection: .main)
+            supplementaryView.configure(text: "\(items.count) people nearby")
           return supplementaryView
         }
     }
-    
-    func applyInitialSnapshots() {
-        let sections = Section.allCases
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections(sections)
-        dataSource.apply(snapshot, animatingDifferences: false)
-        
-        var waitingSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-        waitingSnapshot.append(charts2)
-        dataSource.apply(waitingSnapshot, to: .main, animatingDifferences: false)
-    }
-
     
     private func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex: Int,
@@ -153,14 +144,14 @@ class PeopleListVC: UIViewController {
         return layout
     }
     func performQuery(with filter: String?) {
-        let filtred = charts2.filter() {
+        let filtred = users.filter() {
             if (filter != nil) {
                 return $0.fullname.lowercased().contains(filter?.lowercased() ?? "")
             }
             return true
         }
 
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MUser>()
         snapshot.appendSections([.main])
         snapshot.appendItems(filtred)
         dataSource.apply(snapshot, animatingDifferences: true)

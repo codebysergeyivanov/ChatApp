@@ -14,15 +14,15 @@ struct MUser: Hashable, Decodable {
     let about: String
     let email: String
     let sex: String
-    let avatarImageURL: String
+    let avatarImageStringURL: String
     let uid: String
     
-    init(fullname: String, about: String, email: String, sex: String, avatarString: String, uid: String) {
+    init(fullname: String, about: String, email: String, sex: String, avatarImageStringURL: String, uid: String) {
         self.fullname = fullname
         self.about = about
         self.email = email
         self.sex = sex
-        self.avatarImageURL = avatarString
+        self.avatarImageStringURL = avatarImageStringURL
         self.uid = uid
     }
     
@@ -30,7 +30,7 @@ struct MUser: Hashable, Decodable {
         guard let data = document.data() else { return nil }
         guard let fullname = data["fullname"] as? String,
               let email = data["email"] as? String,
-              //let avatarString = data["avatarStirng"] as? String,
+              let avatarImageStringURL = data["avatarImageStringURL"] as? String,
               let about = data["about"] as? String,
               let sex = data["sex"] as? String,
               let uid = data["uid"] as? String
@@ -40,7 +40,7 @@ struct MUser: Hashable, Decodable {
         self.about = about
         self.email = email
         self.sex = sex
-        self.avatarImageURL = "nil"
+        self.avatarImageStringURL = avatarImageStringURL
         self.uid = uid
     }
     
@@ -49,7 +49,7 @@ struct MUser: Hashable, Decodable {
         rep["about"] = about
         rep["email"] = email
         rep["sex"] = sex
-        rep["avatarString"] = avatarImageURL
+        rep["avatarImageStringURL"] = avatarImageStringURL
         rep["uid"] = uid
         return rep
     }

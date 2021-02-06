@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SDWebImage
 
-class ConversationCell: UICollectionViewCell {
+class PeopleCell: UICollectionViewCell {
     static let reuseIdentifier = "conversation-cell"
     var imageView = UIImageView()
     var fullnameLabel = UILabel()
@@ -40,8 +41,8 @@ class ConversationCell: UICollectionViewCell {
         ])
     }
     
-    func configure(imageName: String, fullname: String) {
-        self.imageView.image = UIImage(named: imageName)
+    func configure(avatarImageStringURL: String, fullname: String) {
+        self.imageView.sd_setImage(with: URL(string: avatarImageStringURL))
         self.fullnameLabel.text = fullname
     }
     
