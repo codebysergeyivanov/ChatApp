@@ -32,6 +32,8 @@
 		3E5424B125CD8CCB007E7806 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5424B025CD8CCA007E7806 /* StorageService.swift */; };
 		3E5424B425CD9310007E7806 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5424B325CD9310007E7806 /* Image.swift */; };
 		3E5424B825CED1B5007E7806 /* ListenerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5424B725CED1B5007E7806 /* ListenerService.swift */; };
+		3E5424D325CFE8E7007E7806 /* MChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5424D225CFE8E7007E7806 /* MChat.swift */; };
+		3E5424D625CFEA08007E7806 /* MMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5424D525CFEA08007E7806 /* MMessage.swift */; };
 		3E62F6B025B3487B00E6DB89 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62F6AF25B3487B00E6DB89 /* SignUpVC.swift */; };
 		3E76C71125BB442E0034991D /* TFWithBottemBorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */; };
 		3E9957FD25BC8B9B00437552 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9957FC25BC8B9B00437552 /* LoginVC.swift */; };
@@ -81,6 +83,8 @@
 		3E5424B025CD8CCA007E7806 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		3E5424B325CD9310007E7806 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		3E5424B725CED1B5007E7806 /* ListenerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerService.swift; sourceTree = "<group>"; };
+		3E5424D225CFE8E7007E7806 /* MChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MChat.swift; sourceTree = "<group>"; };
+		3E5424D525CFEA08007E7806 /* MMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMessage.swift; sourceTree = "<group>"; };
 		3E62F6AF25B3487B00E6DB89 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		3E76C71025BB442E0034991D /* TFWithBottemBorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TFWithBottemBorderLine.swift; sourceTree = "<group>"; };
 		3E9957FC25BC8B9B00437552 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -205,9 +209,20 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		3E5424D025CFE4A1007E7806 /* People */ = {
+			isa = PBXGroup;
+			children = (
+				3E44C31925C0CE4D0002B903 /* PeopleVC.swift */,
+				3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */,
+				3E99581525BCB0E400437552 /* PeopleListVC.swift */,
+			);
+			path = People;
+			sourceTree = "<group>";
+		};
 		3E99580025BC8C0A00437552 /* SignUp&Auth Screens */ = {
 			isa = PBXGroup;
 			children = (
+				3EF5FBDD25C85398002EF4AD /* LaunchScreen.swift */,
 				3E0059A425B1B21F003BA9E8 /* AuthMainVC.swift */,
 				3E9957FC25BC8B9B00437552 /* LoginVC.swift */,
 				3E62F6AF25B3487B00E6DB89 /* SignUpVC.swift */,
@@ -219,12 +234,9 @@
 		3E99580B25BCAD6E00437552 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3EF5FBDD25C85398002EF4AD /* LaunchScreen.swift */,
 				3E99581125BCB00A00437552 /* TabVC.swift */,
-				3E44C31925C0CE4D0002B903 /* PeopleVC.swift */,
-				3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */,
 				3E99581A25BCBCD600437552 /* ConversationListVC.swift */,
-				3E99581525BCB0E400437552 /* PeopleListVC.swift */,
+				3E5424D025CFE4A1007E7806 /* People */,
 				3E0E0B1625BF1EAE00329384 /* data2.json */,
 				3E0E0B1D25BF2F5D00329384 /* data.json */,
 				3E0E0AFF25BEFD8D00329384 /* Cells */,
@@ -258,6 +270,8 @@
 			isa = PBXGroup;
 			children = (
 				3EF5FBE525CC6F3E002EF4AD /* MUser.swift */,
+				3E5424D225CFE8E7007E7806 /* MChat.swift */,
+				3E5424D525CFEA08007E7806 /* MMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -403,6 +417,7 @@
 				3E9957FD25BC8B9B00437552 /* LoginVC.swift in Sources */,
 				3E5424B125CD8CCB007E7806 /* StorageService.swift in Sources */,
 				3E99580925BCAA7F00437552 /* SegmentedControl.swift in Sources */,
+				3E5424D625CFEA08007E7806 /* MMessage.swift in Sources */,
 				3E0E0B0525BF0AD200329384 /* ActiveCell.swift in Sources */,
 				3E0059A525B1B21F003BA9E8 /* AuthMainVC.swift in Sources */,
 				3E0059CB25B1BAD4003BA9E8 /* StackView.swift in Sources */,
@@ -420,6 +435,7 @@
 				3E0059C525B1B756003BA9E8 /* Label.swift in Sources */,
 				3E62F6B025B3487B00E6DB89 /* SignUpVC.swift in Sources */,
 				3E99581625BCB0E400437552 /* PeopleListVC.swift in Sources */,
+				3E5424D325CFE8E7007E7806 /* MChat.swift in Sources */,
 				3EF5FBEA25CC7279002EF4AD /* Validation.swift in Sources */,
 				3E44C31D25C0CECA0002B903 /* ConfirmPeopleVC.swift in Sources */,
 				3E0E0B0E25BF186500329384 /* Bundle Decodable.swift in Sources */,

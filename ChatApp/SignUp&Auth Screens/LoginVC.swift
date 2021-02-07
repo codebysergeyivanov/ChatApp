@@ -22,7 +22,7 @@ class LoginVC: UIViewController {
     let loginButton = UIButton(title: "Login", titleColor: UIColor.white, backgroundColor: .colorDark, isShadow: false)
     let singUpButton = UIButton(title: "Sign Up", titleColor: .systemPink, backgroundColor: .colorLight, isShadow: false)
     
-    var delegate: NavigationDeleagate? = nil
+    var delegate: NavigationDelegate? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()

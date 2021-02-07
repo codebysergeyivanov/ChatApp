@@ -39,6 +39,7 @@ class PeopleListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: createLayout())
+        collectionView.delegate = self
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.register(PeopleCell.self, forCellWithReuseIdentifier: PeopleCell.reuseIdentifier)
         collectionView.backgroundColor = #colorLiteral(red: 0.9136453271, green: 0.9137768149, blue: 0.9136165977, alpha: 1)
@@ -157,6 +158,41 @@ class PeopleListVC: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
+
+// MARK: - NavigationPeopleDelegate
+
+extension PeopleListVC: NavigationPeopleDelegate {
+    func startChat(message: String, receivedId: String) {
+        let mchat = MChat.init(fullname: currentUser.fullname,
+                               about: currentUser.about,
+                               lastMessage: message,
+                               avatarImageStringURL:
+                                currentUser.avatarImageStringURL,
+                               chatId: currentUser.uid)
+        FirestoreService.shared.createWaitingChat(chat: mchat, receivedId: receivedId) {
+            result in
+            switch result {
+            case .success():
+                Messages.show(target: self, title: "Успех", message: "Сообщение отпаравленно", handler: nil)
+            case .failure(let e):
+                Messages.show(target: self, title: "Ошибка", message: e.localizedDescription, handler: nil)
+            }
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension PeopleListVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let user = self.dataSource.itemIdentifier(for: indexPath) else { return }
+        let peopleVC = PeopleVC(user: user)
+        peopleVC.delegate = self
+        present(peopleVC, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UISearchBarDelegate
 
 extension PeopleListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

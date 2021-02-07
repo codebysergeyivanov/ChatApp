@@ -19,7 +19,7 @@ class SignUpVC: UIViewController {
     let singUpButton = UIButton(title: "Sing Up", titleColor: UIColor.white, backgroundColor: .colorDark, isShadow: false)
     let loginButton = UIButton(title: "Login", titleColor: .systemPink, backgroundColor: .colorLight, isShadow: false)
     
-    var delegate: NavigationDeleagate? = nil
+    var delegate: NavigationDelegate? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()

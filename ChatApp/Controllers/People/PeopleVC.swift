@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 
 class PeopleVC: UIViewController {
     let fullnameUserLabel = UILabel(text: "Full Name")
@@ -15,6 +15,20 @@ class PeopleVC: UIViewController {
     var bottomArea = UIView()
     var userInfoSV: UIStackView!
     let input = Input()
+    var delegate: NavigationPeopleDelegate? = nil
+    var user: MUser!
+    
+    init(user: MUser) {
+        self.user = user
+        fullnameUserLabel.text = user.fullname
+        aboutLabel.text = user.about
+        imageView.sd_setImage(with: URL(string: user.avatarImageStringURL), completed: nil)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
@@ -23,6 +37,15 @@ class PeopleVC: UIViewController {
         configureBottomArea()
         addSubviews()
         configureConstraints()
+        
+        input.button.addTarget(self, action: #selector(send), for: .touchUpInside)
+    }
+    
+    @objc func send() {
+        guard let message = input.text, message != "" else { return }
+        dismiss(animated: true) {
+            self.delegate?.startChat(message: message, receivedId: self.user.uid )
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -36,7 +59,6 @@ class PeopleVC: UIViewController {
 
 extension PeopleVC {
     func configureImageView() {
-        imageView.image = UIImage(named: "human1")
         imageView.contentMode = .scaleAspectFill
     }
     func configureBottomArea() {

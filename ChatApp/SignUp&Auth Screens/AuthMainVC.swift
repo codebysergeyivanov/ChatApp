@@ -52,7 +52,7 @@ class AuthMainVC: UIViewController {
     }
 }
 
-extension AuthMainVC: NavigationDeleagate {    
+extension AuthMainVC: NavigationDelegate {    
     func goToTabVC(user: MUser) {
         UIApplication.shared.windows.first?.rootViewController = TabVC(user: user)
     }

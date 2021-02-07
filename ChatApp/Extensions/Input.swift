@@ -8,6 +8,8 @@
 import UIKit
 
 class Input: UITextField {
+    let button = UIButton(type: .system)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = #colorLiteral(red: 0.9136453271, green: 0.9137768149, blue: 0.9136165977, alpha: 0.5)
@@ -22,8 +24,7 @@ class Input: UITextField {
         leftView = imageView
         leftView?.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         leftViewMode = .always
-        
-        let button = UIButton(type: .system)
+
         button.setImage(UIImage(systemName: "paperplane.fill"), for: .normal)
         rightView = button
         rightView?.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
