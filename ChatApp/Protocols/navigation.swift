@@ -18,3 +18,8 @@ protocol NavigationDelegate {
 protocol NavigationPeopleDelegate {
     func startChat(message: String, receivedId: String) -> Void
 }
+
+protocol NavigationConfirmPeopleDelegate {
+    func accept(chat: MChat) -> Void
+    func deny(chat: MChat) -> Void
+}

@@ -23,6 +23,7 @@ class ConfirmPeopleVC: UIViewController {
         return button
     }()
     var chat: MChat!
+    var delegate: NavigationConfirmPeopleDelegate?
     
     init(chat: MChat) {
         self.chat = chat
@@ -42,6 +43,20 @@ class ConfirmPeopleVC: UIViewController {
         configureBottomArea()
         addSubviews()
         configureConstraints()
+        acceptButton.addTarget(self, action: #selector(acceptButtonTapped), for: .touchUpInside)
+        denyButton.addTarget(self, action: #selector(denyButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func acceptButtonTapped() {
+        dismiss(animated: true, completion: {
+            self.delegate?.accept(chat: self.chat)
+        })
+    }
+    
+    @objc func denyButtonTapped() {
+        dismiss(animated: true, completion: {
+            self.delegate?.deny(chat: self.chat)
+        })
     }
     
     override func viewDidLayoutSubviews() {

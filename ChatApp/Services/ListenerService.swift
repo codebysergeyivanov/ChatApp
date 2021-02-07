@@ -24,6 +24,11 @@ class ListenerService {
         return db.collection(["users", currentUserId, "waitingChats"].joined(separator: "/"))
     }
     
+    private var activeChatsRef: CollectionReference {
+        return db.collection(["users", currentUserId, "activeChats"].joined(separator: "/"))
+    }
+    
+    
     func observeObject(_ obj: [MUser], complition: @escaping (Result<[MUser], Error>) -> Void) -> ListenerRegistration {
         var obj = obj
         let listener = usersRef.addSnapshotListener { querySnapshot, error in
@@ -52,9 +57,36 @@ class ListenerService {
         return listener
     }
     
-    func observeChatsObject(_ obj: [MChat], complition: @escaping (Result<[MChat], Error>) -> Void) -> ListenerRegistration {
+    func observeWaitingChatsObject(_ obj: [MChat], complition: @escaping (Result<[MChat], Error>) -> Void) -> ListenerRegistration {
         var obj = obj
         let listener = waitingChatsRef.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                complition(.failure(error!))
+                return
+            }
+            snapshot.documentChanges.forEach { diff in
+                guard let mchat = MChat(document: diff.document) else { return }
+                if (diff.type == .added) {
+                    guard !obj.contains(mchat) else { return }
+                    obj.append(mchat)
+                }
+                if (diff.type == .modified) {
+                    guard let index = obj.firstIndex(of: mchat) else { return}
+                    obj[index] = mchat
+                }
+                if (diff.type == .removed) {
+                    guard let index = obj.firstIndex(of: mchat) else { return}
+                    obj.remove(at: index)
+                }
+            }
+            complition(.success(obj))
+        }
+        return listener
+    }
+    
+    func observeActiveChatsObject(_ obj: [MChat], complition: @escaping (Result<[MChat], Error>) -> Void) -> ListenerRegistration {
+        var obj = obj
+        let listener = activeChatsRef.addSnapshotListener { querySnapshot, error in
             guard let snapshot = querySnapshot else {
                 complition(.failure(error!))
                 return

@@ -15,6 +15,7 @@ struct MMessage: Hashable, Decodable {
     let chatId: String
     let username: String
     let avatarImageStringURL: String
+    let id: String?
     
     init(content: String, chatId: String, username: String, avatarImageStringURL: String) {
         self.content = content
@@ -22,12 +23,13 @@ struct MMessage: Hashable, Decodable {
         self.chatId = chatId
         self.username = username
         self.avatarImageStringURL = avatarImageStringURL
+        self.id = nil
     }
       
-    init?(document: DocumentSnapshot) {
-        guard let data = document.data() else { return nil }
+    init?(document: QueryDocumentSnapshot) {
+        let data = document.data()
         guard let content = data["content"] as? String,
-              let date = data["date"] as? Date,
+              let date = data["date"] as? Timestamp,
               let chatId = data["chatId"] as? String,
               let username = data["username"] as? String,
               let avatarImageStringURL = data["avatarImageStringURL"] as? String
@@ -35,10 +37,11 @@ struct MMessage: Hashable, Decodable {
         else { return nil }
         
         self.content = content
-        self.date = date
+        self.date = date.dateValue()
         self.chatId = chatId
         self.username = username
         self.avatarImageStringURL = avatarImageStringURL
+        self.id = document.documentID
     }
     
     var representaion: [String: Any] {

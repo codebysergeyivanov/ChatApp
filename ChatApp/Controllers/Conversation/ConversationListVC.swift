@@ -30,6 +30,7 @@ class ConversationListVC: UIViewController {
     var waitingChats = [MChat]()
     var activeChats = [MChat]()
     var waitingChatsObserver: ListenerRegistration?
+    var activeChatsObserver: ListenerRegistration?
     
     init(user: MUser) {
         self.currentUser = user
@@ -38,6 +39,7 @@ class ConversationListVC: UIViewController {
     
     deinit {
         waitingChatsObserver?.remove()
+        activeChatsObserver?.remove()
     }
     
     required init?(coder: NSCoder) {
@@ -65,15 +67,27 @@ class ConversationListVC: UIViewController {
         setupNavigationBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(singOut))
         
-        waitingChatsObserver = ListenerService.shared.observeChatsObject(waitingChats) {
+        waitingChatsObserver = ListenerService.shared.observeWaitingChatsObject(waitingChats) {
             result in
             switch result {
             case .success(let chats):
                 if self.waitingChats.count != 0 && self.waitingChats.count <= chats.count {
                     let confirmPeopleVC = ConfirmPeopleVC(chat: chats.last!)
+                    confirmPeopleVC.delegate = self
                     self.present(confirmPeopleVC, animated: true, completion: nil)
                 }
                 self.waitingChats = chats
+                self.reloadData()
+            case .failure(let error):
+                print("Error fetching snapshots: \(error)")
+            }
+        }
+        
+        activeChatsObserver = ListenerService.shared.observeActiveChatsObject(activeChats) {
+            result in
+            switch result {
+            case .success(let chats):
+                self.activeChats = chats
                 self.reloadData()
             case .failure(let error):
                 print("Error fetching snapshots: \(error)")
@@ -213,13 +227,44 @@ class ConversationListVC: UIViewController {
     }
 }
 
+// MAEK: - NavigationConfirmPeopleDelegate
+
+extension ConversationListVC: NavigationConfirmPeopleDelegate {
+    func accept(chat: MChat) {
+        FirestoreService.shared.changeToActiveChats(chat: chat) {
+            result in
+        }
+    }
+    
+    func deny(chat: MChat) {
+        Messages.showWidthCancel(target: self, message: "Вы действительно хотите отклонить чат?", handler: {
+            FirestoreService.shared.deleteWaitingChat(chatId: chat.chatId) {
+                result in
+                switch result {
+                case .success():
+                    Messages.show(target: self, message: "Чат успешно отклонен", handler: nil)
+                case .failure(let e):
+                    Messages.show(target: self, title: "Ошибка", message: e.localizedDescription, handler: nil)
+                }
+            }
+        }, cancel: nil)
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 
 extension ConversationListVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let chat = self.dataSource.itemIdentifier(for: indexPath) else { return }
-        let confirmPeopleVC = ConfirmPeopleVC(chat: chat)
-        present(confirmPeopleVC, animated: true, completion: nil)
+        guard let section = Section(rawValue: indexPath.section) else { return }
+        switch section {
+        case .waiting:
+            let confirmPeopleVC = ConfirmPeopleVC(chat: chat)
+            confirmPeopleVC.delegate = self
+            present(confirmPeopleVC, animated: true, completion: nil)
+        case .active:
+            break
+        }
     }
 }
 
