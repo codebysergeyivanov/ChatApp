@@ -20,6 +20,9 @@ class ListenerService {
     private var currentUserId: String  {
         return Auth.auth().currentUser!.uid
     }
+    private var waitingChatsRef: CollectionReference {
+        return db.collection(["users", currentUserId, "waitingChats"].joined(separator: "/"))
+    }
     
     func observeObject(_ obj: [MUser], complition: @escaping (Result<[MUser], Error>) -> Void) -> ListenerRegistration {
         var obj = obj
@@ -41,6 +44,33 @@ class ListenerService {
                 }
                 if (diff.type == .removed) {
                     guard let index = obj.firstIndex(of: muser) else { return}
+                    obj.remove(at: index)
+                }
+            }
+            complition(.success(obj))
+        }
+        return listener
+    }
+    
+    func observeChatsObject(_ obj: [MChat], complition: @escaping (Result<[MChat], Error>) -> Void) -> ListenerRegistration {
+        var obj = obj
+        let listener = waitingChatsRef.addSnapshotListener { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                complition(.failure(error!))
+                return
+            }
+            snapshot.documentChanges.forEach { diff in
+                guard let mchat = MChat(document: diff.document) else { return }
+                if (diff.type == .added) {
+                    guard !obj.contains(mchat) else { return }
+                    obj.append(mchat)
+                }
+                if (diff.type == .modified) {
+                    guard let index = obj.firstIndex(of: mchat) else { return}
+                    obj[index] = mchat
+                }
+                if (diff.type == .removed) {
+                    guard let index = obj.firstIndex(of: mchat) else { return}
                     obj.remove(at: index)
                 }
             }

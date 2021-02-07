@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ActiveCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
@@ -25,8 +26,8 @@ class ActiveCell: UICollectionViewCell {
     }
     
     
-    func configure(imageName: String, fullname: String, lastMessage: String) {
-        self.imageView?.image = UIImage(named: imageName)
+    func configure(avatarImageStringURL: String, fullname: String, lastMessage: String) {
+        self.imageView?.sd_setImage(with: URL(string: avatarImageStringURL), completed: nil)
         self.imageView.contentMode = .scaleAspectFill
         self.imageView.clipsToBounds = true
         self.fullnameLabel?.text = fullname

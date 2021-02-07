@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class WaitingCell: UICollectionViewCell {
     static let reuseIdentifier = "waiting-cell"
@@ -28,8 +29,8 @@ class WaitingCell: UICollectionViewCell {
         self.clipsToBounds = true
     }
     
-    func configure(imageName: String) {
-        self.imageView.image = UIImage(named: imageName)
+    func configure(avatarImageStringURL: String) {
+        self.imageView.sd_setImage(with: URL(string: avatarImageStringURL), completed: nil)
     }
     
     required init?(coder: NSCoder) {

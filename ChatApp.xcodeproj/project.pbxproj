@@ -22,9 +22,7 @@
 		3E0E0B0525BF0AD200329384 /* ActiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0E0B0425BF0AD200329384 /* ActiveCell.swift */; };
 		3E0E0B0825BF0AE500329384 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0E0B0725BF0AE500329384 /* PeopleCell.swift */; };
 		3E0E0B0E25BF186500329384 /* Bundle Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0E0B0D25BF186500329384 /* Bundle Decodable.swift */; };
-		3E0E0B1725BF1EAE00329384 /* data2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E0E0B1625BF1EAE00329384 /* data2.json */; };
 		3E0E0B1A25BF264600329384 /* ActiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0E0B1925BF264600329384 /* ActiveCell.xib */; };
-		3E0E0B1E25BF2F5D00329384 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 3E0E0B1D25BF2F5D00329384 /* data.json */; };
 		3E44C31A25C0CE4D0002B903 /* PeopleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C31925C0CE4D0002B903 /* PeopleVC.swift */; };
 		3E44C31D25C0CECA0002B903 /* ConfirmPeopleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */; };
 		3E44C32225C0E1C70002B903 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E44C32125C0E1C70002B903 /* Input.swift */; };
@@ -73,9 +71,7 @@
 		3E0E0B0425BF0AD200329384 /* ActiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCell.swift; sourceTree = "<group>"; };
 		3E0E0B0725BF0AE500329384 /* PeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
 		3E0E0B0D25BF186500329384 /* Bundle Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle Decodable.swift"; sourceTree = "<group>"; };
-		3E0E0B1625BF1EAE00329384 /* data2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data2.json; sourceTree = "<group>"; };
 		3E0E0B1925BF264600329384 /* ActiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActiveCell.xib; sourceTree = "<group>"; };
-		3E0E0B1D25BF2F5D00329384 /* data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		3E44C31925C0CE4D0002B903 /* PeopleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleVC.swift; sourceTree = "<group>"; };
 		3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPeopleVC.swift; sourceTree = "<group>"; };
 		3E44C32125C0E1C70002B903 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
@@ -213,10 +209,18 @@
 			isa = PBXGroup;
 			children = (
 				3E44C31925C0CE4D0002B903 /* PeopleVC.swift */,
-				3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */,
 				3E99581525BCB0E400437552 /* PeopleListVC.swift */,
 			);
 			path = People;
+			sourceTree = "<group>";
+		};
+		3E5424D825D00AF6007E7806 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				3E99581A25BCBCD600437552 /* ConversationListVC.swift */,
+				3E44C31C25C0CECA0002B903 /* ConfirmPeopleVC.swift */,
+			);
+			path = Conversation;
 			sourceTree = "<group>";
 		};
 		3E99580025BC8C0A00437552 /* SignUp&Auth Screens */ = {
@@ -235,10 +239,8 @@
 			isa = PBXGroup;
 			children = (
 				3E99581125BCB00A00437552 /* TabVC.swift */,
-				3E99581A25BCBCD600437552 /* ConversationListVC.swift */,
+				3E5424D825D00AF6007E7806 /* Conversation */,
 				3E5424D025CFE4A1007E7806 /* People */,
-				3E0E0B1625BF1EAE00329384 /* data2.json */,
-				3E0E0B1D25BF2F5D00329384 /* data.json */,
 				3E0E0AFF25BEFD8D00329384 /* Cells */,
 			);
 			path = Controllers;
@@ -354,8 +356,6 @@
 			files = (
 				3E0059AD25B1B220003BA9E8 /* LaunchScreen.storyboard in Resources */,
 				3E0E0B1A25BF264600329384 /* ActiveCell.xib in Resources */,
-				3E0E0B1725BF1EAE00329384 /* data2.json in Resources */,
-				3E0E0B1E25BF2F5D00329384 /* data.json in Resources */,
 				3E0059AA25B1B220003BA9E8 /* Assets.xcassets in Resources */,
 				3EA7978025C42DD700C2568E /* GoogleService-Info.plist in Resources */,
 			);

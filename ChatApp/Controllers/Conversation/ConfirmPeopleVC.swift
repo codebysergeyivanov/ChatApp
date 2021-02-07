@@ -22,6 +22,19 @@ class ConfirmPeopleVC: UIViewController {
         button.layer.borderColor = UIColor.systemPink.cgColor
         return button
     }()
+    var chat: MChat!
+    
+    init(chat: MChat) {
+        self.chat = chat
+        fullnameUserLabel.text = chat.fullname
+        aboutLabel.text = chat.about
+        imageView.sd_setImage(with: URL(string: chat.avatarImageStringURL), completed: nil)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +55,6 @@ class ConfirmPeopleVC: UIViewController {
 
 extension ConfirmPeopleVC {
     func configureImageView() {
-        imageView.image = UIImage(named: "human1")
         imageView.contentMode = .scaleAspectFill
     }
     func configureBottomArea() {

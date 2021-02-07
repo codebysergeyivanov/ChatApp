@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseFirestore
 
 class ConversationListVC: UIViewController {
     private var reuseIdentifier = "Cell"
@@ -24,28 +24,20 @@ class ConversationListVC: UIViewController {
         }
     }
     
-    struct Item: Hashable, Decodable {
-        let fullname: String
-        let lastMessage: String
-        let image: String
-        let id: Int
-        
-        init(fullname: String, lastMessage: String, image: String, id: Int) {
-            self.fullname = fullname
-            self.lastMessage = lastMessage
-            self.image = image
-            self.id = id
-        }
-    }
-    
-    
     var collectionView: UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<Section, Item>!
+    var dataSource: UICollectionViewDiffableDataSource<Section, MChat>!
     var currentUser: MUser!
+    var waitingChats = [MChat]()
+    var activeChats = [MChat]()
+    var waitingChatsObserver: ListenerRegistration?
     
     init(user: MUser) {
         self.currentUser = user
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    deinit {
+        waitingChatsObserver?.remove()
     }
     
     required init?(coder: NSCoder) {
@@ -57,6 +49,7 @@ class ConversationListVC: UIViewController {
         super.viewDidLoad()
         
         self.collectionView = UICollectionView(frame: self.view.bounds, collectionViewLayout: createLayout())
+        collectionView.delegate = self
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.register(WaitingCell.self, forCellWithReuseIdentifier: WaitingCell.reuseIdentifier)
         
@@ -71,6 +64,21 @@ class ConversationListVC: UIViewController {
         performQuery(with: nil)
         setupNavigationBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(singOut))
+        
+        waitingChatsObserver = ListenerService.shared.observeChatsObject(waitingChats) {
+            result in
+            switch result {
+            case .success(let chats):
+                if self.waitingChats.count != 0 && self.waitingChats.count <= chats.count {
+                    let confirmPeopleVC = ConfirmPeopleVC(chat: chats.last!)
+                    self.present(confirmPeopleVC, animated: true, completion: nil)
+                }
+                self.waitingChats = chats
+                self.reloadData()
+            case .failure(let error):
+                print("Error fetching snapshots: \(error)")
+            }
+        }
     }
     
     @objc func singOut() {
@@ -92,17 +100,17 @@ class ConversationListVC: UIViewController {
     }
     
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView) {
             (collectionView, indexPath, chat) -> UICollectionViewCell? in
             guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
             switch section {
             case .waiting:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WaitingCell.reuseIdentifier, for: indexPath as IndexPath) as! WaitingCell
-                cell.configure(imageName: chat.image)
+                cell.configure(avatarImageStringURL: chat.avatarImageStringURL)
                 return cell
             case .active:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActiveCell.reuseIdentifier, for: indexPath as IndexPath) as! ActiveCell
-                cell.configure(imageName: chat.image, fullname: chat.fullname, lastMessage: chat.lastMessage)
+                cell.configure(avatarImageStringURL: chat.avatarImageStringURL, fullname: chat.fullname, lastMessage: chat.lastMessage)
                 return cell
             }
         }
@@ -127,19 +135,18 @@ class ConversationListVC: UIViewController {
     
     func applyInitialSnapshots() {
         let sections = Section.allCases
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        var snapshot = NSDiffableDataSourceSnapshot<Section, MChat>()
         snapshot.appendSections(sections)
         dataSource.apply(snapshot, animatingDifferences: false)
-        
-        let charts = Bundle.main.decode([Item].self, from: "data")
-        let charts2 = Bundle.main.decode([Item].self, from: "data2")
-        
-        var waitingSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-        waitingSnapshot.append(charts)
+    }
+    
+    func reloadData() {
+        var waitingSnapshot = NSDiffableDataSourceSectionSnapshot<MChat>()
+        waitingSnapshot.append(waitingChats)
         dataSource.apply(waitingSnapshot, to: .waiting, animatingDifferences: false)
         
-        var activeSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-        activeSnapshot.append(charts2)
+        var activeSnapshot = NSDiffableDataSourceSectionSnapshot<MChat>()
+        activeSnapshot.append(activeChats)
         dataSource.apply(activeSnapshot, to: .active, animatingDifferences: false)
     }
     
@@ -203,6 +210,16 @@ class ConversationListVC: UIViewController {
     
     func performQuery(with filter: String?) {
         //
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension ConversationListVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let chat = self.dataSource.itemIdentifier(for: indexPath) else { return }
+        let confirmPeopleVC = ConfirmPeopleVC(chat: chat)
+        present(confirmPeopleVC, animated: true, completion: nil)
     }
 }
 
