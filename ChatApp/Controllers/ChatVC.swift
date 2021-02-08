@@ -9,16 +9,22 @@ import UIKit
 import SDWebImage
 import MessageKit
 import InputBarAccessoryView
+import FirebaseFirestore
 
 class ChatVC: MessagesViewController {
     private var messages = [MMessage]()
     private let user: MUser
     private let chat: MChat
+    var messageObserver: ListenerRegistration?
     
     init(user: MUser, chat: MChat) {
         self.user = user
         self.chat = chat
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    deinit {
+        messageObserver?.remove()
     }
     
     required init?(coder: NSCoder) {
@@ -33,10 +39,19 @@ class ChatVC: MessagesViewController {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesDisplayDelegate = self
         title = chat.fullname
+        
+        messageObserver = ListenerService.shared.observeMessagesObject(chat: chat) {
+            result in
+            switch result {
+            case .success(let message):
+                self.insertNewMessage(message: message)
+            case .failure(let e):
+                print(e.localizedDescription)
+            }
+        }
     }
     
     private func insertNewMessage(message: MMessage) {
-        guard !messages.contains(message) else { return }
         messages.append(message)
         messages.sort()
         messagesCollectionView.reloadData()
@@ -83,7 +98,15 @@ extension ChatVC: MessagesDisplayDelegate {
 extension ChatVC: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         let message = MMessage(content: text, chatId: user.uid, username: user.fullname, avatarImageStringURL: user.avatarImageStringURL)
-        insertNewMessage(message: message)
+        FirestoreService.shared.sendMessage(chat: chat, message: message) {
+            result in
+            switch result {
+            case .success():
+                self.messagesCollectionView.scrollToLastItem()
+            case .failure(let e):
+                print(e.localizedDescription)
+            }
+        }
         inputBar.inputTextView.text = ""
     }
 }

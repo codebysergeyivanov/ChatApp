@@ -55,6 +55,10 @@ class PeopleVC: UIViewController {
                 mask.path = path.cgPath
         bottomArea.layer.mask = mask
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 extension PeopleVC {

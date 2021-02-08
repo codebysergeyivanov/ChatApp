@@ -65,6 +65,9 @@ class ProfileVC: UIViewController{
             self.present(tabVC, animated: true, completion: nil)
         }
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
