@@ -8,6 +8,10 @@
 import UIKit
 import FirebaseFirestore
 
+class CustomTapGesture: UITapGestureRecognizer {
+    var payload: MChat?
+}
+
 class ConversationListVC: UIViewController {
     private var reuseIdentifier = "Cell"
     static let sectionHeaderElementKind = "section-header-element-kind"
@@ -55,15 +59,14 @@ class ConversationListVC: UIViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.register(WaitingCell.self, forCellWithReuseIdentifier: WaitingCell.reuseIdentifier)
         
-        let nibItem = UINib(nibName: "ActiveCell", bundle: .main)
-        collectionView.register(nibItem, forCellWithReuseIdentifier: ActiveCell.reuseIdentifier)
+        collectionView.register(ActiveCell.nib, forCellWithReuseIdentifier: ActiveCell.reuseIdentifier)
+        
         collectionView.backgroundColor = #colorLiteral(red: 0.9136453271, green: 0.9137768149, blue: 0.9136165977, alpha: 1)
         collectionView.register(Header.self, forSupplementaryViewOfKind: PeopleListVC.sectionHeaderElementKind, withReuseIdentifier: Header.reuseIdentifier)
         view.addSubview(collectionView)
         
         configureDataSource()
         applyInitialSnapshots()
-        performQuery(with: nil)
         setupNavigationBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .plain, target: self, action: #selector(singOut))
         
@@ -113,8 +116,14 @@ class ConversationListVC: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    @objc func activeCellTapped(sender: CustomTapGesture) {
+        guard let chat = sender.payload else { return }
+        let chatVC = ChatVC(user: currentUser, chat: chat)
+        navigationController?.pushViewController(chatVC, animated: true)
+    }
+    
     func configureDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, MChat>(collectionView: collectionView) { [self]
             (collectionView, indexPath, chat) -> UICollectionViewCell? in
             guard let section = Section(rawValue: indexPath.section) else { fatalError("Unknown section") }
             switch section {
@@ -124,6 +133,9 @@ class ConversationListVC: UIViewController {
                 return cell
             case .active:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ActiveCell.reuseIdentifier, for: indexPath as IndexPath) as! ActiveCell
+                let tap = CustomTapGesture(target: self, action: #selector(activeCellTapped(sender:)))
+                cell.addGestureRecognizer(tap)
+                tap.payload = chat
                 cell.configure(avatarImageStringURL: chat.avatarImageStringURL, fullname: chat.fullname, lastMessage: chat.lastMessage)
                 return cell
             }
@@ -197,8 +209,8 @@ class ConversationListVC: UIViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 
                 section = NSCollectionLayoutSection(group: group)
-                section.interGroupSpacing = 15
                 
+                section.interGroupSpacing = 15
                 section.contentInsets = .init(top: 10, leading: 10, bottom: 10, trailing: 10)
             } else {
                 fatalError("Unknown section!")
